@@ -1,16 +1,50 @@
-# React + Vite
+📺 NetflixGPT — AI-Powered Movie App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+NetflixGPT is a modern AI-enhanced movie browsing application built using React + Vite, featuring Redux Toolkit, React Router, and Appwrite authentication.
+The UI is styled beautifully using Tailwind CSS, inspired by Netflix's signature design.
 
-Currently, two official plugins are available:
+🚀 Tech Stack Frontend
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+⚛️ React (Vite setup)
+🎨 Tailwind CSS
+🔄 Redux Toolkit (global state management)
+🌐 React Router v6 (routing)
+🔐 React Hook Form (form handling)
+🎭 Netflix-style UI components
 
-## React Compiler
+Backend / Auth
+☁️ Appwrite (Authentication + User Account Management)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+🔧 Features Implemented
+✅ ✔ User Authentication
 
-## Expanding the ESLint configuration
+Sign Up with Appwrite
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Sign In with Appwrite
+
+Password validation + confirm password matching
+
+Netflix-style show/hide password icons
+
+Error handling UI
+
+🎨 ✔ Netflix-Themed UI
+
+Full-screen hero background
+Glass effect sign-in box
+Responsive on all devices
+Red Netflix button styles
+Custom reusable Input, Button, Error components
+
+🔄 ✔ Redux Toolkit
+
+Global auth state
+User session stored in Redux
+Easy integration for future features (movies, AI responses…)
+
+🛣️ ✔ Routing
+
+/auth → Sign In / Sign Up
+
+git clone https://github.com/iamsyedbilal/NetflixGPT.git
+cd NetflixGPT
