@@ -10,7 +10,7 @@ function Logo() {
         xmlns:xlink="http://www.w3.org/1999/xlink"
         aria-hidden="true"
         role="img"
-        class="default-ltr-iqcdef-cache-17hp4kx e38gzvf2"
+        // class="default-ltr-iqcdef-cache-17hp4kx e38gzvf2"
       >
         <g>
           <path

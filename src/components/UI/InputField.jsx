@@ -23,7 +23,7 @@ const InputField = forwardRef(function InputField(
         type={type}
         name={name}
         placeholder={placeholder}
-        className="w-full font-sans font-medium px-4 py-3 bg-[#302e2e] text-white placeholder-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-[#E50914]"
+        className="w-full font-sans font-medium px-4 py-3 bg-[#272525] text-white placeholder-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-[#E50914]"
         {...props}
       />
     </div>

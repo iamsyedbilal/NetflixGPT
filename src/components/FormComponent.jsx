@@ -1,21 +1,62 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { InputField, Button, ErrorMessage } from "./";
 import { useForm } from "react-hook-form";
 import { IoEyeOff, IoEye } from "react-icons/io5";
+import { createUserAccount, userLogin } from "../lib/appwriteAuth";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { login } from "../features/auth/auth";
 
 function FormComponent({ signingUp, toggleForm }) {
   const [submitError, setSubmitError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
+    watch,
   } = useForm();
 
-  async function onFormSubmit() {}
+  const password = watch("password");
+
+  async function onFormSubmit(data) {
+    if (signingUp && data.password !== data.confirm) {
+      setSubmitError("Password & Confirm Password not match");
+      return;
+    }
+
+    try {
+      setSubmitError("");
+      const { name, email, password } = data;
+      if (signingUp) {
+        await createUserAccount({ name, email, password });
+      } else {
+        const loginData = await userLogin({ email, password });
+        dispatch(login(loginData));
+      }
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+      setSubmitError(error.message);
+    } finally {
+      reset();
+      setSubmitError("");
+    }
+  }
+
+  const allErrors = [
+    ...Object.values(errors).map((err) => err.message),
+    submitError ? submitError : null,
+  ].filter(Boolean);
+
+  useEffect(() => {
+    setSubmitError("");
+  }, [watch()]);
 
   return (
     <div className="bg-black backdrop-blur-lg w-full max-w-md p-8 sm:p-10 rounded-md shadow-lg text-white">
@@ -24,7 +65,14 @@ function FormComponent({ signingUp, toggleForm }) {
       </h2>
 
       <form className="flex flex-col" onSubmit={handleSubmit(onFormSubmit)}>
-        <ErrorMessage message={submitError} />
+        {allErrors.length > 0 && (
+          <div className="mb-4 space-y-2">
+            {allErrors.map((msg, idx) => (
+              <ErrorMessage key={idx} message={msg} />
+            ))}
+          </div>
+        )}
+
         {signingUp && (
           <InputField
             name="name"
@@ -32,6 +80,7 @@ function FormComponent({ signingUp, toggleForm }) {
             {...register("name", { required: "Name is required" })}
           />
         )}
+
         <InputField
           name="email"
           placeholder="Email address"
@@ -43,12 +92,25 @@ function FormComponent({ signingUp, toggleForm }) {
             },
           })}
         />
+
         <div className="relative">
           <InputField
             type={showPassword ? "text" : "password"}
             name="password"
             placeholder="Password"
-            {...register("password", { required: "Password is required" })}
+            {...register("password", {
+              required: "Password is required",
+              minLength: {
+                value: 8,
+                message: "Password must be at least 8 characters long",
+              },
+              pattern: {
+                value:
+                  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                message:
+                  "Password must include uppercase, lowercase, number, and special character",
+              },
+            })}
           />
           <span
             className="absolute right-3 top-1/3 -translate-y-1/2 cursor-pointer text-gray-300 hover:text-white"
@@ -57,6 +119,7 @@ function FormComponent({ signingUp, toggleForm }) {
             {showPassword ? <IoEyeOff size={22} /> : <IoEye size={22} />}
           </span>
         </div>
+
         {signingUp && (
           <div className="relative">
             <InputField
@@ -65,8 +128,8 @@ function FormComponent({ signingUp, toggleForm }) {
               placeholder="Confirm Password"
               {...register("confirm", {
                 required: "Please confirm password",
-                validate: (value, formValues) =>
-                  value === formValues.password || "Passwords do not match",
+                validate: (value) =>
+                  value === password || "Passwords do not match",
               })}
             />
 
@@ -93,6 +156,14 @@ function FormComponent({ signingUp, toggleForm }) {
           {signingUp ? "Sign In" : "Sign Up"}
         </span>
       </p>
+      {!signingUp && (
+        <p
+          className="mt-2 text-sm text-[#E50914] cursor-pointer hover:underline"
+          onClick={() => navigate("/forgot-password")}
+        >
+          Forgot Password?
+        </p>
+      )}
     </div>
   );
 }

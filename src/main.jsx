@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { AuthPage } from "./pages";
+import { AuthPage, ForgotPassword, Resetpassword } from "./pages";
 import { store } from "./store/store.js";
 import { Provider } from "react-redux";
 
@@ -15,6 +15,14 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <AuthPage />,
+      },
+      {
+        path: "/forgot-password",
+        element: <ForgotPassword />,
+      },
+      {
+        path: "/reset-password",
+        element: <Resetpassword />,
       },
     ],
   },

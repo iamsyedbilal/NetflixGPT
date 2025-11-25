@@ -14,3 +14,50 @@ export async function createUserAccount({ name, email, password }) {
     throw new Error("Failed to create account. Please try again.");
   }
 }
+
+// Login user
+export async function userLogin({ email, password }) {
+  try {
+    const session = appwriteAccount.createEmailPasswordSession(email, password);
+    return session;
+  } catch (error) {
+    if (error?.message?.toLowerCase().includes("invalid credentials")) {
+      throw new Error("Invalid email or password.");
+    }
+    throw new Error("Login failed. Please try again.");
+  }
+}
+
+// Logout User
+export async function userLogout() {
+  try {
+    await appwriteAccount.deleteSession("current");
+  } catch (error) {
+    throw new Error(`Logging out failed ${error?.message}`);
+  }
+}
+
+// Forgot Password
+export async function userForgotPassword(email) {
+  try {
+    await appwriteAccount.createRecovery(
+      email,
+      import.meta.env.VITE_FRONTEND_URL
+    );
+  } catch (error) {
+    console.error("Error initiating password recovery:", error);
+    throw new Error(
+      "Failed to send recovery email. Please check the email address."
+    );
+  }
+}
+
+// Reset Password
+export async function userResetPassword(userId, secret, newPassword) {
+  try {
+    await appwriteAccount.updateRecovery(userId, secret, newPassword);
+  } catch (error) {
+    console.error("Error resetting password:", error);
+    throw new Error("Failed to reset password. Please try again.");
+  }
+}
