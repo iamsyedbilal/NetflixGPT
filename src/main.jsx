@@ -3,7 +3,8 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { AuthPage, ForgotPassword, Resetpassword } from "./pages";
+import { AuthPage, ForgotPassword, Home, Resetpassword } from "./pages";
+import { AuthLayout } from "./components";
 import { store } from "./store/store.js";
 import { Provider } from "react-redux";
 
@@ -13,16 +14,36 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
+        path: "/",
+        element: (
+          <AuthLayout authentication={true}>
+            <Home />
+          </AuthLayout>
+        ),
+      },
+      {
         path: "/login",
-        element: <AuthPage />,
+        element: (
+          <AuthLayout authentication={false}>
+            <AuthPage />
+          </AuthLayout>
+        ),
       },
       {
         path: "/forgot-password",
-        element: <ForgotPassword />,
+        element: (
+          <AuthLayout authentication={false}>
+            <ForgotPassword />
+          </AuthLayout>
+        ),
       },
       {
         path: "/reset-password",
-        element: <Resetpassword />,
+        element: (
+          <AuthLayout authentication={false}>
+            <Resetpassword />
+          </AuthLayout>
+        ),
       },
     ],
   },

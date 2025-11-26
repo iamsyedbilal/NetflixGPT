@@ -37,15 +37,17 @@ function FormComponent({ signingUp, toggleForm }) {
         await createUserAccount({ name, email, password });
       } else {
         const loginData = await userLogin({ email, password });
+        if (!loginData) {
+          setSubmitError("Invalid Credentials");
+          return;
+        }
         dispatch(login(loginData));
       }
       navigate("/");
-    } catch (error) {
-      console.log(error);
-      setSubmitError(error.message);
-    } finally {
       reset();
-      setSubmitError("");
+    } catch (error) {
+      setSubmitError(error.message);
+      // throw new Error(error.message);
     }
   }
 
@@ -55,11 +57,14 @@ function FormComponent({ signingUp, toggleForm }) {
   ].filter(Boolean);
 
   useEffect(() => {
-    setSubmitError("");
-  }, [watch()]);
+    if (submitError) {
+      const subscription = watch(() => setSubmitError(""));
+      return () => subscription.unsubscribe();
+    }
+  }, [submitError, watch]);
 
   return (
-    <div className="bg-black backdrop-blur-lg w-full max-w-md p-8 sm:p-10 rounded-md shadow-lg text-white">
+    <div className="bg-black/40 backdrop-blur-lg w-full max-w-md sm:p-10 rounded-md shadow-lg text-white">
       <h2 className="text-3xl font-bold mb-6">
         {signingUp ? "Sign Up" : "Sign In"}
       </h2>

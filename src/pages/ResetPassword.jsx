@@ -54,7 +54,7 @@ function ResetPassword() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-black">
+    <div className="min-h-screen flex items-center justify-center bg-black/90">
       <div className="bg-black/70 backdrop-blur-lg w-full max-w-md p-8 sm:p-10 rounded-md shadow-lg text-white">
         <h2 className="text-3xl font-bold mb-6 text-center">Reset Password</h2>
         {errMsg && <ErrorMessage message={errMsg} />}
