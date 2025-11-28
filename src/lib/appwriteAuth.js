@@ -4,9 +4,7 @@ import { ID } from "appwrite";
 // Create User Account
 export async function createUserAccount({ name, email, password }) {
   try {
-    await appwriteAccount.create(ID.unique(), email, password, name);
-    await appwriteAccount.createEmailPasswordSession(email, password);
-    return await appwriteAccount.get();
+    return await appwriteAccount.create(ID.unique(), email, password, name);
   } catch (error) {
     if (error?.message?.includes("exists")) {
       throw new Error("An account with this email already exists.");
@@ -18,8 +16,8 @@ export async function createUserAccount({ name, email, password }) {
 // Login user
 export async function userLogin({ email, password }) {
   try {
-    const session = appwriteAccount.createEmailPasswordSession(email, password);
-    return session;
+    await appwriteAccount.createEmailPasswordSession(email, password);
+    return await appwriteAccount.get();
   } catch (error) {
     if (error?.message?.toLowerCase().includes("invalid credentials")) {
       throw new Error("Invalid email or password.");
@@ -34,6 +32,15 @@ export async function userLogout() {
     await appwriteAccount.deleteSession("current");
   } catch (error) {
     throw new Error(`Logging out failed ${error?.message}`);
+  }
+}
+
+// Get User
+export async function getUser() {
+  try {
+    return await appwriteAccount.get();
+  } catch (error) {
+    return null;
   }
 }
 

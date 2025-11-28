@@ -35,16 +35,19 @@ function FormComponent({ signingUp, toggleForm }) {
       const { name, email, password } = data;
       if (signingUp) {
         await createUserAccount({ name, email, password });
+        reset();
+        toggleForm();
+        return;
       } else {
-        const loginData = await userLogin({ email, password });
-        if (!loginData) {
+        const user = await userLogin({ email, password });
+        if (!user) {
           setSubmitError("Invalid Credentials");
           return;
         }
-        dispatch(login(loginData));
+        dispatch(login(user));
+        navigate("/");
+        reset();
       }
-      navigate("/");
-      reset();
     } catch (error) {
       setSubmitError(error.message);
       // throw new Error(error.message);
