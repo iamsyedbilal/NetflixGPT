@@ -7,9 +7,11 @@ import { useNavigate } from "react-router-dom";
 import { userAvatar } from "../constants/constant";
 import { BiSearch } from "react-icons/bi";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 function Header() {
   const [toggleProfile, setToggleProfile] = useState(false);
+  const userLoginStatus = useSelector((store) => store.auth.userStatus);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -21,7 +23,7 @@ function Header() {
   }
 
   return (
-    <header className="absolute top-0 left-0 w-full py-6 px-8 bg-transparent z-50">
+    <header className="fixed top-0 left-0 w-full h-16 bg-transparent backdrop-blur-md z-50  px-6 py-3">
       <div className="flex items-center justify-between">
         <div>
           <Link to={"/"}>
@@ -29,33 +31,35 @@ function Header() {
           </Link>
         </div>
 
-        <div className="relative flex items-center gap-4">
-          <BiSearch size={28} className="cursor-pointer" />
+        {userLoginStatus && (
+          <div className="relative flex items-center gap-4">
+            <BiSearch size={28} className="cursor-pointer" />
 
-          {/* Avatar */}
-          <img
-            src={userAvatar}
-            alt="User Avatar"
-            className="cursor-pointer w-10 h-10 rounded"
-            onClick={() => setToggleProfile((prev) => !prev)}
-          />
+            {/* Avatar */}
+            <img
+              src={userAvatar}
+              alt="User Avatar"
+              className="cursor-pointer w-10 h-10 rounded"
+              onClick={() => setToggleProfile((prev) => !prev)}
+            />
 
-          {/* Dropdown Menu */}
-          {toggleProfile && (
-            <div className="absolute right-0 top-14 bg-black/80 backdrop-blur-md text-white px-4 py-3 rounded-md shadow-lg w-40 flex flex-col gap-3 animate-fadeIn">
-              <Link to="/profile" className="hover:text-red-400 transition">
-                Profile
-              </Link>
+            {/* Dropdown Menu */}
+            {toggleProfile && (
+              <div className="absolute right-0 top-14 bg-black/80 backdrop-blur-md text-white px-4 py-3 rounded-md shadow-lg w-40 flex flex-col gap-3 animate-fadeIn">
+                <Link to="/profile" className="hover:text-red-400 transition">
+                  Profile
+                </Link>
 
-              <button
-                onClick={handleLogoutFunc}
-                className="text-left hover:text-red-400 transition"
-              >
-                Logout
-              </button>
-            </div>
-          )}
-        </div>
+                <button
+                  onClick={handleLogoutFunc}
+                  className="text-left hover:text-red-400 transitio cursor-pointer"
+                >
+                  Logout
+                </button>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </header>
   );

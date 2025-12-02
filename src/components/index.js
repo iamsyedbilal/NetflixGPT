@@ -5,6 +5,9 @@ import Button from "./UI/Button";
 import ErrorMessage from "./UI/error/ErrorMessage";
 import InputField from "./UI/InputField";
 import AuthLayout from "./AuthLayout";
+import MovieComponents from "./MovieComponent";
+import VideoTitle from "./VideoTitle";
+import VideoBackground from "./VideoBackground";
 
 export {
   Header,
@@ -14,4 +17,7 @@ export {
   ErrorMessage,
   InputField,
   AuthLayout,
+  VideoTitle,
+  VideoBackground,
+  MovieComponents,
 };

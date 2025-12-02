@@ -1,5 +1,14 @@
+import useNowPlayingMovies from "../hooks/useNowPlayingMovies";
+import { MovieComponents } from "../components";
+
 function Home() {
-  return <div className="relative">Home</div>;
+  useNowPlayingMovies();
+
+  return (
+    <div className="mt-16">
+      <MovieComponents />
+    </div>
+  );
 }
 
 export default Home;

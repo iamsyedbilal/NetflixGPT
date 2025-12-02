@@ -16,7 +16,11 @@ import { Provider } from "react-redux";
 import { login } from "./features/auth/auth.js";
 import { getUser } from "./lib/appwriteAuth.js";
 
-getUser().then((user) => store.dispatch(login(user)));
+getUser().then((user) => {
+  if (user) {
+    store.dispatch(login(user));
+  }
+});
 
 const router = createBrowserRouter([
   {
@@ -68,9 +72,9 @@ const router = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <Provider store={store}>
-      <RouterProvider router={router} />
-    </Provider>
-  </StrictMode>
+  // <StrictMode>
+  <Provider store={store}>
+    <RouterProvider router={router} />
+  </Provider>
+  // </StrictMode>
 );
