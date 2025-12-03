@@ -7,3 +7,5 @@ export const API_OPTIONS = {
     Authorization: import.meta.env.VITE_API_KEY,
   },
 };
+
+export const IMG_CDN_URL = import.meta.env.VITE_IMG_URL;

@@ -8,6 +8,9 @@ import AuthLayout from "./AuthLayout";
 import MovieComponents from "./MovieComponent";
 import VideoTitle from "./VideoTitle";
 import VideoBackground from "./VideoBackground";
+import Movies from "./Movies";
+import MovieList from "./MovieList";
+import MovieCard from "./MovieCard";
 
 export {
   Header,
@@ -20,4 +23,7 @@ export {
   VideoTitle,
   VideoBackground,
   MovieComponents,
+  Movies,
+  MovieList,
+  MovieCard,
 };

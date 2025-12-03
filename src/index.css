@@ -1,1 +1,20 @@
 @import "tailwindcss";
+
+body {
+  background-color: #000;
+}
+
+/* Hide scrollbar for Chrome, Safari, Edge */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for Firefox */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+/* Hide scrollbar for IE/Edge Legacy */
+.no-scrollbar {
+  -ms-overflow-style: none;
+}

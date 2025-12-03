@@ -3,7 +3,7 @@ import { Header } from "./components";
 
 function App() {
   return (
-    <div>
+    <div className="min-h-screen ">
       <Header />
       <Outlet />
     </div>

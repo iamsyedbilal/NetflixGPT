@@ -9,12 +9,13 @@ function Button({
   ...props
 }) {
   const baseStyles =
-    "font-semibold rounded focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors";
+    "font-semibold rounded focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors ";
 
   const variantStyles = {
     primary:
       "bg-[#E50914] text-white hover:bg-[#f6131b] focus:ring-[#E50914] cursor-pointer",
     secondary: "bg-gray-700 text-white hover:bg-gray-600 focus:ring-gray-500",
+    custom: "",
   };
 
   const sizeStyles = {
