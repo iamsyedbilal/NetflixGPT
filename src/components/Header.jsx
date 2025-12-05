@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { BiSearch } from "react-icons/bi";
 import { useState, useEffect } from "react";
 import { userAvatar } from "../constants/constant";
+import { toggleGptSearchView } from "../features/gpt/gptSlice";
 
 function Header() {
   const [toggleProfile, setToggleProfile] = useState(false);
@@ -29,6 +30,10 @@ function Header() {
     await userLogout();
     dispatch(logout());
     navigate("/login");
+  }
+
+  function handleGptToggle() {
+    dispatch(toggleGptSearchView());
   }
 
   return (
@@ -70,7 +75,11 @@ function Header() {
       {/* Right Section ------------------------------------------------------------ */}
       {userLoginStatus && (
         <div className="ml-auto flex items-center gap-6 relative">
-          <BiSearch size={24} className="cursor-pointer text-white" />
+          <BiSearch
+            size={24}
+            className="cursor-pointer text-white"
+            onClick={handleGptToggle}
+          />
 
           <img
             src={userAvatar}

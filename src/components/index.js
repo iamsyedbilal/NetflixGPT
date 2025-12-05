@@ -11,8 +11,14 @@ import VideoBackground from "./VideoBackground";
 import Movies from "./Movies";
 import MovieList from "./MovieList";
 import MovieCard from "./MovieCard";
+import GptMovieSuggesation from "./GptMovieSuggesation";
+import GptSearch from "./GptSearch";
+import GptSearchBar from "./GptSearchBar";
 
 export {
+  GptMovieSuggesation,
+  GptSearch,
+  GptSearchBar,
   Header,
   Logo,
   FormComponent,
