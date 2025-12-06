@@ -9,6 +9,10 @@ import {
   Home,
   Resetpassword,
   Profile,
+  NowPlayingMovies,
+  PopularMovies,
+  MovieDetails,
+  WatchLater,
 } from "./pages";
 import { AuthLayout } from "./components";
 import { store } from "./store/store.js";
@@ -64,6 +68,38 @@ const router = createBrowserRouter([
         element: (
           <AuthLayout authentication={true}>
             <Profile />
+          </AuthLayout>
+        ),
+      },
+      {
+        path: "/now-playing",
+        element: (
+          <AuthLayout authentication={true}>
+            <NowPlayingMovies />
+          </AuthLayout>
+        ),
+      },
+      {
+        path: "/popular",
+        element: (
+          <AuthLayout authentication={true}>
+            <PopularMovies />
+          </AuthLayout>
+        ),
+      },
+      {
+        path: "/movie/:id",
+        element: (
+          <AuthLayout authentication={true}>
+            <MovieDetails />
+          </AuthLayout>
+        ),
+      },
+      {
+        path: "/watch-later",
+        element: (
+          <AuthLayout authentication={true}>
+            <WatchLater />
           </AuthLayout>
         ),
       },

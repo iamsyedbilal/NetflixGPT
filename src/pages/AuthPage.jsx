@@ -9,7 +9,7 @@ function AuthPage() {
   }
 
   return (
-    <div className="max-h-screen w-full flex items-center justify-center px-4 md:px-0">
+    <div className="relative min-h-screen w-full flex items-center justify-center px-4 sm:px-0">
       {/* Background */}
       <div
         className="absolute inset-0 bg-cover bg-center"
@@ -21,7 +21,7 @@ function AuthPage() {
       </div>
 
       {/* Form container */}
-      <div className="flex items-center justify-center h-screen z-10 w-full max-w-md">
+      <div className="relative flex items-center justify-center w-full max-w-md h-screen z-10">
         <FormComponent signingUp={signingUp} toggleForm={toggleForm} />
       </div>
     </div>

@@ -1,8 +1,8 @@
 import { Button, ErrorMessage, InputField } from "../components";
-import { useSearchParams, useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { userResetPassword } from "../lib/appwriteAuth";
 import { useForm } from "react-hook-form";
+import { userResetPassword } from "../lib/appwriteAuth";
+import { useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { IoEyeOff, IoEye } from "react-icons/io5";
 
 function ResetPassword() {
@@ -10,6 +10,7 @@ function ResetPassword() {
   const [showConfirm, setShowConfirm] = useState(false);
   const [errMsg, setErrMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
+
   const {
     register,
     handleSubmit,
@@ -19,8 +20,8 @@ function ResetPassword() {
   } = useForm();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const password = watch("newPassword");
 
+  const password = watch("newPassword");
   const userId = searchParams.get("userId");
   const secret = searchParams.get("secret");
 
@@ -41,12 +42,12 @@ function ResetPassword() {
       setErrMsg("Passwords do not match");
       return;
     }
+
     try {
       await userResetPassword(userId, secret, data.newPassword);
       setSuccessMsg("Password successfully updated! Redirecting to login...");
       reset();
-    } catch (error) {
-      console.error(error);
+    } catch {
       setErrMsg("Failed to reset password. Please try again.");
     } finally {
       navigate("/login");
@@ -54,14 +55,21 @@ function ResetPassword() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-black/90">
+    <div className="min-h-screen flex items-center justify-center bg-black/90 px-4">
       <div className="bg-black/70 backdrop-blur-lg w-full max-w-md p-8 sm:p-10 rounded-md shadow-lg text-white">
-        <h2 className="text-3xl font-bold mb-6 text-center">Reset Password</h2>
+        <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-center">
+          Reset Password
+        </h2>
+
         {errMsg && <ErrorMessage message={errMsg} />}
         {successMsg && (
           <p className="text-green-500 text-sm mb-4">{successMsg}</p>
         )}
-        <form onSubmit={handleSubmit(handleResetPassword)}>
+
+        <form
+          onSubmit={handleSubmit(handleResetPassword)}
+          className="flex flex-col gap-4"
+        >
           <div className="relative">
             <InputField
               type={showPassword ? "text" : "password"}
@@ -84,6 +92,7 @@ function ResetPassword() {
           {errors.newPassword && (
             <ErrorMessage message={errors.newPassword.message} />
           )}
+
           <div className="relative">
             <InputField
               type={showConfirm ? "text" : "password"}
@@ -104,7 +113,8 @@ function ResetPassword() {
           {errors.confirmPassword && (
             <ErrorMessage message={errors.confirmPassword.message} />
           )}
-          <Button type="submit" className="w-full">
+
+          <Button type="submit" className="w-full mt-2">
             Reset Password
           </Button>
         </form>

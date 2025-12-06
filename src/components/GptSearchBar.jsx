@@ -15,9 +15,6 @@ function GptSearchBar() {
 
   async function searchMovieTMDB(movie) {
     const langCode = TMDB_LANGUAGE_CODES[language] || "en-US";
-
-    console.log(langCode);
-
     const url = `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(
       movie
     )}&include_adult=true&language=${langCode}&page=1`;
@@ -31,66 +28,45 @@ function GptSearchBar() {
     if (!query.trim()) return;
 
     const movies = await fetchGPTMovies(query, language);
-
     const data = movies.map((movie) => searchMovieTMDB(movie));
     const tmdbResultsNested = await Promise.all(data);
     const tmdbResults = tmdbResultsNested.flat();
 
     dispatch(setGptMovieResults(tmdbResults));
-
     setQuery("");
   }
 
   return (
-    <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-10">
+    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full mb-6">
       {/* Search Input */}
       <input
         type="text"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder={PLACEHOLDER_TEXT[language]}
-        className="w-full sm:w-2/3 lg:w-1/2 px-5 py-3 
-                   bg-white/10 text-white placeholder-gray-300
-                   rounded-lg outline-none border border-transparent
-                   focus:border-red-500 transition"
+        className="w-full sm:flex-1 px-4 py-3 bg-white/10 text-white placeholder-gray-300 rounded-lg outline-none border border-transparent focus:border-red-500 transition"
       />
 
       {/* Language Dropdown */}
       <select
         value={language}
         onChange={(e) => setLanguage(e.target.value)}
-        className="px-4 py-3 bg-white/10 text-white rounded-lg
-                   border border-transparent focus:border-red-500
-                   outline-none cursor-pointer transition"
+        className="w-full sm:w-40 px-4 py-3 bg-white/10 text-white rounded-lg border border-transparent focus:border-red-500 outline-none cursor-pointer transition"
       >
-        <option value="en" className="bg-black text-white">
-          English
-        </option>
-        <option value="ur" className="bg-black text-white">
-          Urdu
-        </option>
-        <option value="hi" className="bg-black text-white">
-          Hindi
-        </option>
-        <option value="es" className="bg-black text-white">
-          Spanish
-        </option>
-        <option value="fr" className="bg-black text-white">
-          French
-        </option>
-        <option value="jp" className="bg-black text-white">
-          Japanese
-        </option>
-        <option value="kr" className="bg-black text-white">
-          Korean
-        </option>
+        <option value="en">English</option>
+        <option value="ur">Urdu</option>
+        <option value="hi">Hindi</option>
+        <option value="es">Spanish</option>
+        <option value="fr">French</option>
+        <option value="jp">Japanese</option>
+        <option value="kr">Korean</option>
       </select>
 
       {/* Search Button */}
       <button
         onClick={handleGptSearchClick}
         disabled={!query.trim()}
-        className={`px-6 py-3 rounded-lg text-white transition ${
+        className={`w-full sm:w-auto px-6 py-3 rounded-lg text-white transition ${
           query.trim()
             ? "bg-red-600 hover:bg-red-700 cursor-pointer"
             : "bg-gray-600 cursor-not-allowed"

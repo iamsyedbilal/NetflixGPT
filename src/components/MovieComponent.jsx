@@ -17,12 +17,12 @@ function MovieComponents() {
   const { original_title, overview, id } = movie;
 
   return (
-    <div className="relative w-full h-screen text-white overflow-hidden">
+    <div className="relative w-full h-[60vh] sm:h-[70vh] md:h-[80vh] lg:h-screen text-white overflow-hidden">
       {/* Video Background */}
       <VideoBackground movieId={id} />
 
       {/* Overlay content */}
-      <div className="absolute top-1/3 left-6 md:left-12 lg:left-20 z-10 max-w-xl space-y-4">
+      <div className="absolute top-[25%] sm:top-1/3 left-4 sm:left-6 md:left-12 lg:left-20 z-10 max-w-xs sm:max-w-md lg:max-w-xl space-y-4">
         <VideoTitle title={original_title} overview={overview} />
       </div>
     </div>

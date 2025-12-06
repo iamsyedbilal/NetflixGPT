@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { InputField, Button, ErrorMessage } from "./";
 import { useForm } from "react-hook-form";
 import { IoEyeOff, IoEye } from "react-icons/io5";
@@ -11,6 +11,7 @@ function FormComponent({ signingUp, toggleForm }) {
   const [submitError, setSubmitError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -33,6 +34,7 @@ function FormComponent({ signingUp, toggleForm }) {
     try {
       setSubmitError("");
       const { name, email, password } = data;
+
       if (signingUp) {
         await createUserAccount({ name, email, password });
         reset();
@@ -50,7 +52,6 @@ function FormComponent({ signingUp, toggleForm }) {
       }
     } catch (error) {
       setSubmitError(error.message);
-      // throw new Error(error.message);
     }
   }
 
@@ -59,22 +60,18 @@ function FormComponent({ signingUp, toggleForm }) {
     submitError ? submitError : null,
   ].filter(Boolean);
 
-  useEffect(() => {
-    if (submitError) {
-      const subscription = watch(() => setSubmitError(""));
-      return () => subscription.unsubscribe();
-    }
-  }, [submitError, watch]);
-
   return (
-    <div className="bg-black/40 backdrop-blur-lg w-full max-w-md sm:p-10 rounded-md shadow-lg text-white">
-      <h2 className="text-3xl font-bold mb-6">
+    <div className="bg-black/40 backdrop-blur-lg w-full max-w-md p-6 sm:p-10 rounded-md shadow-lg text-white">
+      <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-center">
         {signingUp ? "Sign Up" : "Sign In"}
       </h2>
 
-      <form className="flex flex-col" onSubmit={handleSubmit(onFormSubmit)}>
+      <form
+        className="flex flex-col gap-4"
+        onSubmit={handleSubmit(onFormSubmit)}
+      >
         {allErrors.length > 0 && (
-          <div className="mb-4 space-y-2">
+          <div className="space-y-2">
             {allErrors.map((msg, idx) => (
               <ErrorMessage key={idx} message={msg} />
             ))}
@@ -110,18 +107,17 @@ function FormComponent({ signingUp, toggleForm }) {
               required: "Password is required",
               minLength: {
                 value: 8,
-                message: "Password must be at least 8 characters long",
+                message: "Password must be at least 8 characters",
               },
               pattern: {
-                value:
-                  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])/,
                 message:
                   "Password must include uppercase, lowercase, number, and special character",
               },
             })}
           />
           <span
-            className="absolute right-3 top-1/3 -translate-y-1/2 cursor-pointer text-gray-300 hover:text-white"
+            className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-300 hover:text-white"
             onClick={() => setShowPassword((prev) => !prev)}
           >
             {showPassword ? <IoEyeOff size={22} /> : <IoEye size={22} />}
@@ -140,9 +136,8 @@ function FormComponent({ signingUp, toggleForm }) {
                   value === password || "Passwords do not match",
               })}
             />
-
             <span
-              className="absolute right-3 top-1/3 -translate-y-1/2 cursor-pointer text-gray-300 hover:text-white"
+              className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-300 hover:text-white"
               onClick={() => setShowConfirm((prev) => !prev)}
             >
               {showConfirm ? <IoEyeOff size={22} /> : <IoEye size={22} />}
@@ -150,12 +145,12 @@ function FormComponent({ signingUp, toggleForm }) {
           </div>
         )}
 
-        <Button type="submit" variant="primary" className="mt-4 w-full">
+        <Button type="submit" variant="primary" className="mt-2 w-full">
           {signingUp ? "Sign Up" : "Sign In"}
         </Button>
       </form>
 
-      <p className="mt-6 text-sm text-gray-300">
+      <p className="mt-6 text-sm text-gray-300 text-center">
         {signingUp ? "Already have an account?" : "New here?"}
         <span
           className="text-[#E50914] ml-1 cursor-pointer hover:underline"
@@ -164,9 +159,10 @@ function FormComponent({ signingUp, toggleForm }) {
           {signingUp ? "Sign In" : "Sign Up"}
         </span>
       </p>
+
       {!signingUp && (
         <p
-          className="mt-2 text-sm text-[#E50914] cursor-pointer hover:underline"
+          className="mt-2 text-sm text-[#E50914] text-center cursor-pointer hover:underline"
           onClick={() => navigate("/forgot-password")}
         >
           Forgot Password?

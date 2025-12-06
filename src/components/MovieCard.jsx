@@ -1,10 +1,16 @@
 import { IMG_CDN_URL } from "../constants/constant";
 
-function MovieCard({ posterPath }) {
+import { useNavigate } from "react-router-dom";
+
+function MovieCard({ posterPath, movieId }) {
+  const navigate = useNavigate();
   if (!posterPath) return null;
 
   return (
-    <div className="min-w-20 md:min-w-40 cursor-pointer transition-transform duration-300 hover:scale-110 hover:brightness-110">
+    <div
+      onClick={() => navigate(`/movie/${movieId}`)}
+      className="min-w-[120px] sm:min-w-[140px] md:min-w-[160px] lg:min-w-[180px] cursor-pointer transition-transform duration-300 hover:scale-105 hover:brightness-110"
+    >
       <img
         src={IMG_CDN_URL + posterPath}
         className="w-full h-auto rounded-md shadow-lg"

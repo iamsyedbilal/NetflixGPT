@@ -11,11 +11,11 @@ function VideoBackground({ movieId }) {
   }
 
   return (
-    <div className="w-screen">
+    <div className="w-full h-full absolute inset-0 -z-10">
       <iframe
         title="Movie Trailer"
-        src={`https://www.youtube.com/embed/${trailerVideo.key}?autoplay=1&mute=1&repeat=6`}
-        className="w-full aspect-video object-cover pointer-events-none"
+        src={`https://www.youtube.com/embed/${trailerVideo.key}?autoplay=1&mute=1&loop=1&playlist=${trailerVideo.key}`}
+        className="w-full h-full object-cover pointer-events-none"
         frameBorder="0"
         allow="picture-in-picture; gyroscope; accelerometer; autoplay; clipboard-write; encrypted-media"
       />

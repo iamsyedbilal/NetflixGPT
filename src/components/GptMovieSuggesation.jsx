@@ -1,10 +1,28 @@
 import { useSelector } from "react-redux";
+import { MovieCard } from "./";
 
 function GptMovieSuggesation() {
   const suggestedMovies = useSelector((store) => store.gpt.gptMovieResults);
+  const isLoading = suggestedMovies === null;
+
+  if (isLoading) {
+    return (
+      <div className="py-10 flex justify-center items-center text-white text-lg">
+        Loading recommended movies...
+      </div>
+    );
+  }
+
+  if (!suggestedMovies || suggestedMovies.length === 0) {
+    return (
+      <div className="py-10 flex justify-center items-center text-white text-lg">
+        No recommendations found.
+      </div>
+    );
+  }
 
   return (
-    <div className="py-3">
+    <div className="py-3 px-2 sm:px-4">
       <h2 className="text-xl font-semibold mb-4">Recommended for you</h2>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
@@ -13,13 +31,9 @@ function GptMovieSuggesation() {
             key={item.id}
             className="bg-white/10 rounded-md overflow-hidden shadow-lg flex flex-col"
           >
-            {/* Poster */}
+            {/* Poster using MovieCard */}
             {item.poster_path ? (
-              <img
-                src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
-                alt={item.title}
-                className="w-full h-48 object-cover"
-              />
+              <MovieCard posterPath={item.poster_path} movieId={item.id} />
             ) : (
               <div className="w-full h-48 bg-gray-600 flex items-center justify-center">
                 No Image
@@ -29,7 +43,6 @@ function GptMovieSuggesation() {
             {/* Movie Info */}
             <div className="p-2 flex flex-col flex-grow">
               <h3 className="text-white font-semibold text-sm">
-                {" "}
                 {item.title || item.original_title}
               </h3>
               <p className="text-gray-300 text-xs mt-1">
