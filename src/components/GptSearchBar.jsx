@@ -51,7 +51,7 @@ function GptSearchBar() {
       <select
         value={language}
         onChange={(e) => setLanguage(e.target.value)}
-        className="w-full sm:w-40 px-4 py-3 bg-white/10 text-white rounded-lg border border-transparent focus:border-red-500 outline-none cursor-pointer transition"
+        className="w-full sm:w-40 px-4 py-3 bg-black text-white rounded-lg border border-transparent focus:border-red-500 outline-none cursor-pointer transition"
       >
         <option value="en">English</option>
         <option value="ur">Urdu</option>

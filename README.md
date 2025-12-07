@@ -1,50 +1,99 @@
-📺 NetflixGPT — AI-Powered Movie App
+# 📺 NetflixGPT — AI-Powered Movie App
 
-NetflixGPT is a modern AI-enhanced movie browsing application built using React + Vite, featuring Redux Toolkit, React Router, and Appwrite authentication.
-The UI is styled beautifully using Tailwind CSS, inspired by Netflix's signature design.
+NetflixGPT is a modern AI-enhanced movie browsing application built using **React + Vite**, featuring **Redux Toolkit**, **React Router**, and **Appwrite authentication**.  
+The UI is styled with **Tailwind CSS**, inspired by Netflix’s signature design.
 
-🚀 Tech Stack Frontend
+This project also includes a **Node.js backend** that integrates **Groq (OpenAI API)** to provide intelligent, AI-powered movie recommendations.
 
-⚛️ React (Vite setup)
-🎨 Tailwind CSS
-🔄 Redux Toolkit (global state management)
-🌐 React Router v6 (routing)
-🔐 React Hook Form (form handling)
-🎭 Netflix-style UI components
+---
 
-Backend / Auth
-☁️ Appwrite (Authentication + User Account Management)
+## 🚀 Tech Stack
 
-🔧 Features Implemented
-✅ ✔ User Authentication
+### Frontend
 
-Sign Up with Appwrite
+- ⚛️ React (Vite)
+- 🎨 Tailwind CSS
+- 🔄 Redux Toolkit
+- 🌐 React Router v6
+- 🔐 React Hook Form
+- 🎭 Netflix-style UI Components
 
-Sign In with Appwrite
+### Backend
 
-Password validation + confirm password matching
+- 🟢 Node.js
+- ⚡ Express.js
+- 🤖 OpenAI API (Groq)
+- 🔐 Environment-based configuration
 
-Netflix-style show/hide password icons
+### Authentication
 
-Error handling UI
+- ☁️ Appwrite (Authentication + User Management)
 
-🎨 ✔ Netflix-Themed UI
+---
 
-Full-screen hero background
-Glass effect sign-in box
-Responsive on all devices
-Red Netflix button styles
-Custom reusable Input, Button, Error components
+## ✨ Features
 
-🔄 ✔ Redux Toolkit
+### ✅ User Authentication
 
-Global auth state
-User session stored in Redux
-Easy integration for future features (movies, AI responses…)
+- Sign Up / Sign In using Appwrite
+- Secure password validation
+- Show/Hide password (Netflix-style UI)
+- Clean error handling
 
-🛣️ ✔ Routing
+### 🤖 AI-Powered Movie Search (Groq)
 
-/auth → Sign In / Sign Up
+- Natural language movie search
+- AI-generated movie recommendations
+- Express-based backend API
+- Secure OpenAI integration
 
+### 🎬 Movie Features
+
+- Browse **Now Playing** and **Popular Movies**
+- Detailed Movie Pages
+- Trailers via TMDB
+- Watchlist (Add / Remove)
+
+### 🎨 Netflix-Inspired UI
+
+- Full-screen hero backgrounds
+- Responsive layout (Mobile-first)
+- Netflix red themed buttons
+- Glassmorphism cards
+
+### 🔄 State Management
+
+- Redux global store
+- Auth session handling
+- Movie data caching
+
+## 📁 Project Structure
+
+NetflixGPT
+│
+├── Backend/ # Express + Groq backend
+│ ├── routes/
+│ ├── controllers/
+│ └── index.js
+│
+├── src/
+│ ├── components/
+│ ├── pages/
+│ ├── features/
+│ ├── hooks/
+│ ├── constants/
+│ └── App.jsx
+│
+├── package.json
+└── README.md
+
+---
+
+## ⚙️ Installation
+
+### 1️⃣ Clone the repo
+
+```bash
 git clone https://github.com/iamsyedbilal/NetflixGPT.git
 cd NetflixGPT
+```

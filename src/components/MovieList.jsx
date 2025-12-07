@@ -1,11 +1,13 @@
 import { useRef } from "react";
-import { MovieCard } from "./";
+import { MovieCard, SkeletonMovieRow } from "./";
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 
 function MovieList({ title, movies }) {
   const rowRef = useRef(null);
 
-  if (!movies || movies.length === 0) return null;
+  if (!movies) return <SkeletonMovieRow title={title} />;
+
+  if (movies.length === 0) return null;
 
   const scroll = (direction) => {
     const { current } = rowRef;

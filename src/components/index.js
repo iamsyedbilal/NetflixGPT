@@ -14,6 +14,8 @@ import MovieCard from "./MovieCard";
 import GptMovieSuggesation from "./GptMovieSuggesation";
 import GptSearch from "./GptSearch";
 import GptSearchBar from "./GptSearchBar";
+import SkeletonMovieCard from "./UI/SkeletonMovieCard";
+import SkeletonMovieRow from "./UI/SkeletonMovieRow";
 
 export {
   GptMovieSuggesation,
@@ -32,4 +34,6 @@ export {
   Movies,
   MovieList,
   MovieCard,
+  SkeletonMovieCard,
+  SkeletonMovieRow,
 };
