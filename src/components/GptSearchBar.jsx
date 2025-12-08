@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setGptMovieResults } from "../features/gpt/gptSlice";
+import { setGptMovieResults, setGptLoading } from "../features/gpt/gptSlice";
 import { fetchGPTMovies } from "../openAI/openAI";
 import {
   API_OPTIONS,
@@ -27,17 +27,24 @@ function GptSearchBar() {
   async function handleGptSearchClick() {
     if (!query.trim()) return;
 
-    const movies = await fetchGPTMovies(query, language);
-    const data = movies.map((movie) => searchMovieTMDB(movie));
-    const tmdbResultsNested = await Promise.all(data);
-    const tmdbResults = tmdbResultsNested.flat();
+    try {
+      dispatch(setGptLoading(true));
+      const movies = await fetchGPTMovies(query, language);
+      const data = movies.map((movie) => searchMovieTMDB(movie));
+      const tmdbResultsNested = await Promise.all(data);
+      const tmdbResults = tmdbResultsNested.flat();
 
-    dispatch(setGptMovieResults(tmdbResults));
-    setQuery("");
+      dispatch(setGptMovieResults(tmdbResults));
+    } catch (err) {
+      console.error("Search error:", err);
+    } finally {
+      dispatch(setGptLoading(false));
+      setQuery("");
+    }
   }
 
   return (
-    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full mb-6">
+    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full mb-2">
       {/* Search Input */}
       <input
         type="text"
