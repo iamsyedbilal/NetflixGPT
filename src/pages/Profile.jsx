@@ -51,7 +51,10 @@ function Profile() {
           <Button
             variant="primary"
             className="w-full"
-            onClick={() => navigate("/forgot-password")}
+            onClick={async () => {
+              await handleLogout();
+              navigate("/forgot-password");
+            }}
           >
             Reset Password
           </Button>
