@@ -7,12 +7,19 @@ function AuthLayout({ children, authentication = true }) {
   const authStatus = useSelector((store) => store.auth.userStatus);
 
   useEffect(() => {
-    if (authentication && !authStatus) {
-      navigate("/login");
-    } else if (!authentication && authStatus) {
-      navigate("/");
+    if (authStatus !== undefined) {
+      if (authentication && !authStatus) {
+        navigate("/login", { replace: true });
+      } else if (!authentication && authStatus) {
+        navigate("/", { replace: true });
+      }
     }
-  }, [navigate, authStatus, authentication]);
+  }, [authStatus, authentication, navigate]);
+
+  if (authStatus === undefined || authStatus === null) return null;
+
+  if ((authentication && !authStatus) || (!authentication && authStatus))
+    return null;
 
   return <>{children}</>;
 }

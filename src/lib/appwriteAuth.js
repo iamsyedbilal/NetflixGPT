@@ -49,7 +49,7 @@ export async function userForgotPassword(email) {
   try {
     await appwriteAccount.createRecovery(
       email,
-      import.meta.env.VITE_FRONTEND_URL
+      import.meta.env.VITE_FRONTEND_URL + "/reset-password"
     );
   } catch (error) {
     console.error("Error initiating password recovery:", error);

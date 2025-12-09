@@ -117,7 +117,7 @@ function FormComponent({ signingUp, toggleForm }) {
             })}
           />
           <span
-            className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-300 hover:text-white"
+            className="absolute right-3 top-6 -translate-y-1/2 cursor-pointer text-gray-300 hover:text-white"
             onClick={() => setShowPassword((prev) => !prev)}
           >
             {showPassword ? <IoEyeOff size={22} /> : <IoEye size={22} />}
@@ -137,7 +137,7 @@ function FormComponent({ signingUp, toggleForm }) {
               })}
             />
             <span
-              className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-300 hover:text-white"
+              className="absolute right-3 top-6 -translate-y-1/2 cursor-pointer text-gray-300 hover:text-white"
               onClick={() => setShowConfirm((prev) => !prev)}
             >
               {showConfirm ? <IoEyeOff size={22} /> : <IoEye size={22} />}
